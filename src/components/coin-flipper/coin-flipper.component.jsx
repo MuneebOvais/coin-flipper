@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Coin from '../coin/coin.component';
+import {getRandomFace} from './helpers';
+
 
 class CoinFlipper extends Component{
     constructor(props){
@@ -20,8 +22,7 @@ class CoinFlipper extends Component{
     handleClick = () => {
         let {flips, heads, tails, face} = this.state; //destructuring object
         
-        const idx = Math.floor(Math.random()*this.props.faces.length);
-        face = this.props.faces[idx];
+        face = getRandomFace(this.props.faces);
         
         ++flips;
         face === 'heads' ? ++heads : ++tails;
@@ -34,7 +35,7 @@ class CoinFlipper extends Component{
         return(
             <div className='coin-flipper'>
                 <h1>Let's Flip a coin!</h1>
-                <Coin face={this.state.face} />
+                {this.state.face && <Coin face={this.state.face} />}
                 <h3>Out of {this.state.flips} flips, there have been {this.state.heads} heads and {this.state.tails} tails</h3>
                 <button onClick={this.handleClick}>FLIP ME</button>
             </div>
